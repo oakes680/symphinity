@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Login, FormLabel, FormInput, LoginButton, LinkButton} from '../stylesheets/Login';
 
-export const LoginForm = () => {
+const LoginForm = () => {
   const [formData, setFormData] = useState({});
   const { register, handleSubmit, errors } = useForm();
 
@@ -15,10 +16,10 @@ export const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="login">
+    <Login onSubmit={handleSubmit(onSubmit)}>
+      <FormLabel htmlFor="login">
         Email/Username:
-        <input
+        <FormInput
           type="text"
           id="login"
           name="login"
@@ -31,11 +32,11 @@ export const LoginForm = () => {
             }
           })}
         />
-      </label>
+      </FormLabel>
       {errors.login && <p>{errors.login.message}</p>}
-      <label htmlFor="password">
+      <FormLabel htmlFor="password">
         Password:
-        <input
+        <FormInput
           type="password"
           id="password"
           name="password"
@@ -48,9 +49,13 @@ export const LoginForm = () => {
             }
           })}
         />
-      </label>
+      </FormLabel>
       {errors.password && <p>{errors.password.message}</p>}
-      <button>Login</button>
-    </form>
+      <LoginButton>Login</LoginButton>
+      <LinkButton href="/register">Sign Up</LinkButton>
+    </Login>
   );
 };
+
+
+export default LoginForm;
