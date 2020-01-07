@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Login = styled.form`
-    width: 240px;
-    margin: 0 auto;
+    width: 600px;
+    margin: 10% auto 0;
     border: 2px solid #ededed;
     border-radius: 5px;
     padding: 15px;
