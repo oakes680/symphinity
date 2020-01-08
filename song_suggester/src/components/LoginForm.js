@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Login, FormLabel, FormInput, LoginButton, LinkButton} from '../stylesheets/Login';
+import { Form, FormLabel, FormInput, FormButton, LinkButton, FormContainer, FormCenter} from '../stylesheets/Form';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({});
@@ -16,7 +16,10 @@ const LoginForm = () => {
   };
 
   return (
-    <Login onSubmit={handleSubmit(onSubmit)}>
+    <FormContainer>
+    <Form onSubmit={handleSubmit(onSubmit)}>
+    <h2>Welcome to Symphinity</h2>
+    <p>Please Login</p>
       <FormLabel htmlFor="login">
         Email/Username:
         <FormInput
@@ -51,9 +54,11 @@ const LoginForm = () => {
         />
       </FormLabel>
       {errors.password && <p>{errors.password.message}</p>}
-      <LoginButton>Login</LoginButton>
+      <FormButton>Login</FormButton>
+      <FormCenter>- OR -</FormCenter>
       <LinkButton href="/register">Sign Up</LinkButton>
-    </Login>
+    </Form>
+    </FormContainer>
   );
 };
 

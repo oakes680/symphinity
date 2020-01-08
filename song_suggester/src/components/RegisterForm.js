@@ -1,6 +1,16 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 
+import {
+  Form,
+  FormInput,
+  FormButton,
+  FormLabel,
+  FormContainer,
+  Ast,
+  LinkButton
+} from "../stylesheets/Form";
+
 export const RegisterForm = () => {
   const [formData, setFormData] = useState({});
   const { register, handleSubmit, errors, watch } = useForm();
@@ -17,10 +27,12 @@ export const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="username">
-        Username<span className="mandatory">*</span>:
-        <input
+    <FormContainer>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <h2>Sign Up For Symphinity</h2>
+        <FormLabel htmlFor="username">
+          Username<Ast>*</Ast>:
+          <FormInput
           type="text"
           id="username"
           name="username"
@@ -35,11 +47,12 @@ export const RegisterForm = () => {
             }
           })}
         />
-      </label>
-      {errors.username && <p>{errors.username.message}</p>}
-      <label htmlFor="email">
-        Email<span className="mandatory">*</span>:
-        <input
+        </FormLabel>
+        
+        {errors.username && <p>{errors.username.message}</p>}
+        <FormLabel htmlFor="email">
+          Email<Ast>*</Ast>:
+          <FormInput
           type="email"
           id="email"
           name="email"
@@ -52,11 +65,12 @@ export const RegisterForm = () => {
             }
           })}
         />
-      </label>
-      {errors.email && <p>{errors.email.message}</p>}
-      <label htmlFor="password">
-        Password<span className="mandatory">*</span>:
-        <input
+        </FormLabel>
+        
+        {errors.email && <p>{errors.email.message}</p>}
+        <FormLabel htmlFor="password">
+          Password<Ast>*</Ast>:
+          <FormInput
           type="password"
           id="password"
           name="password"
@@ -70,11 +84,12 @@ export const RegisterForm = () => {
             }
           })}
         />
-      </label>
-      {errors.password && <p>{errors.password.message}</p>}
-      <label htmlFor="repeatpassword">
-        Password Confirm<span className="mandatory">*</span>:
-        <input
+        </FormLabel>
+        
+        {errors.password && <p>{errors.password.message}</p>}
+        <FormLabel htmlFor="repeatpassword">
+          Password Confirm<Ast>*</Ast>:
+          <FormInput
           type="password"
           id="repeatpassword"
           name="repeatpassword"
@@ -86,9 +101,12 @@ export const RegisterForm = () => {
               value === password.current || "The passwords do not match!"
           })}
         />
-      </label>
-      {errors.repeatpassword && <p>{errors.repeatpassword.message}</p>}
-      <button>Sign Up</button>
-    </form>
+        </FormLabel>
+        
+        {errors.repeatpassword && <p>{errors.repeatpassword.message}</p>}
+        <FormButton>Sign Up</FormButton>
+        <LinkButton href="/">Sign In</LinkButton>
+      </Form>
+    </FormContainer>
   );
 };
