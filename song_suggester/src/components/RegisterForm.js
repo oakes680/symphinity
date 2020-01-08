@@ -125,3 +125,5 @@ export const RegisterForm = () => {
     </FormContainer>
   );
 };
+
+export default RegisterForm
