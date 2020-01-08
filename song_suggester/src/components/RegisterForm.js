@@ -8,7 +8,8 @@ import {
   FormLabel,
   FormContainer,
   Ast,
-  LinkButton
+  LinkButton,
+  FormValidationWarning
 } from "../stylesheets/Form";
 
 export const RegisterForm = () => {
@@ -33,77 +34,91 @@ export const RegisterForm = () => {
         <FormLabel htmlFor="username">
           Username<Ast>*</Ast>:
           <FormInput
-          type="text"
-          id="username"
-          name="username"
-          onChange={e => handleInput(e)}
-          ref={register({
-            required: true,
-            minlength: 8,
-            pattern: {
-              value: /^(?:[A-Z\d][A-Z\d_-]{7,})$/i,
-              message:
-                "Please enter a username with at least 8 alphanumeric characters."
-            }
-          })}
-        />
+            type="text"
+            id="username"
+            name="username"
+            onChange={e => handleInput(e)}
+            ref={register({
+              required: true,
+              minlength: 8,
+              pattern: {
+                value: /^(?:[A-Z\d][A-Z\d_-]{7,})$/i,
+                message:
+                  "Please enter a username with at least 8 alphanumeric characters."
+              }
+            })}
+          />
         </FormLabel>
-        
-        {errors.username && <p>{errors.username.message}</p>}
+
+        {errors.username && (
+          <FormValidationWarning>
+            {errors.username.message}
+          </FormValidationWarning>
+        )}
         <FormLabel htmlFor="email">
           Email<Ast>*</Ast>:
           <FormInput
-          type="email"
-          id="email"
-          name="email"
-          onChange={e => handleInput(e)}
-          ref={register({
-            required: true,
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-              message: "Please enter a valid email address."
-            }
-          })}
-        />
+            type="email"
+            id="email"
+            name="email"
+            onChange={e => handleInput(e)}
+            ref={register({
+              required: true,
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                message: "Please enter a valid email address."
+              }
+            })}
+          />
         </FormLabel>
-        
-        {errors.email && <p>{errors.email.message}</p>}
+
+        {errors.email && (
+          <FormValidationWarning>{errors.email.message}</FormValidationWarning>
+        )}
         <FormLabel htmlFor="password">
           Password<Ast>*</Ast>:
           <FormInput
-          type="password"
-          id="password"
-          name="password"
-          onChange={e => handleInput(e)}
-          ref={register({
-            required: true,
-            minlength: 8,
-            pattern: {
-              value: /^(?=.{8,}$)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*/,
-              message: "Please enter a password of at least 8 characters."
-            }
-          })}
-        />
+            type="password"
+            id="password"
+            name="password"
+            onChange={e => handleInput(e)}
+            ref={register({
+              required: true,
+              minlength: 8,
+              pattern: {
+                value: /^(?=.{8,}$)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*/,
+                message: "Please enter a password of at least 8 characters."
+              }
+            })}
+          />
         </FormLabel>
-        
-        {errors.password && <p>{errors.password.message}</p>}
+
+        {errors.password && (
+          <FormValidationWarning>
+            {errors.password.message}
+          </FormValidationWarning>
+        )}
         <FormLabel htmlFor="repeatpassword">
           Password Confirm<Ast>*</Ast>:
           <FormInput
-          type="password"
-          id="repeatpassword"
-          name="repeatpassword"
-          onChange={e => handleInput(e)}
-          ref={register({
-            required: true,
-            minlength: 8,
-            validate: value =>
-              value === password.current || "The passwords do not match!"
-          })}
-        />
+            type="password"
+            id="repeatpassword"
+            name="repeatpassword"
+            onChange={e => handleInput(e)}
+            ref={register({
+              required: true,
+              minlength: 8,
+              validate: value =>
+                value === password.current || "The passwords do not match!"
+            })}
+          />
         </FormLabel>
-        
-        {errors.repeatpassword && <p>{errors.repeatpassword.message}</p>}
+
+        {errors.repeatpassword && (
+          <FormValidationWarning>
+            {errors.repeatpassword.message}
+          </FormValidationWarning>
+        )}
         <FormButton>Sign Up</FormButton>
         <LinkButton href="/">Sign In</LinkButton>
       </Form>

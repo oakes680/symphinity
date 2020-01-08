@@ -6,5 +6,6 @@ export default {
   altGreen: "#17D18D",
   blue: "#0DB7DE",
   lightBlue: "#0EE8D6",
-  grey: "#606B6E"
+  grey: "#606B6E",
+  warn: "#BA231E"
 };

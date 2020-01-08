@@ -19,10 +19,12 @@ export const FormLabel = styled.label`
 export const FormInput = styled.input`
   display: block;
   width: 100%;
-  height: 40px;
+  // height: 40px;
   border: 1px solid #121212;
   background-color: #282828;
   margin: 5px 0 0;
+  color: #FFF;
+  padding: .5rem;
 `;
 
 export const FormButton = styled.button`
@@ -81,4 +83,12 @@ export const FormCenter = styled.p`
 export const Ast = styled.span`
   color: #e63209;
   margin: 0 3px;
+`;
+
+export const FormValidationWarning = styled.div`
+  background-color: ${colors.warn};
+  padding: 0.5rem;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 10px;
 `;
