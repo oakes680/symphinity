@@ -1,24 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Route, Redirect} from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
+
+// Application Component Imports
+import Navigation from './components/Navigation';
+import Dashboard from './components/Dashboard';
+import Login from './components/Login';
+import Saved from './components/Saved';
+import Register from './components/Register';
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-wrapper">
+      <Route path='/' component={Navigation} />
+      <Route exact path='/' render={() => (<Redirect to='/dashboard' />)}/>
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/register" component={Register} />
+      <PrivateRoute exact path="/dashboard" component={Dashboard} /> 
+      <PrivateRoute path="/dashboard/saved" component={Saved} />
     </div>
   );
 }
