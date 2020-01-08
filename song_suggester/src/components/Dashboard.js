@@ -6,7 +6,7 @@ import Search from './Search';
 import SongContainer from "./SongContainer";
 import SongOption from "./SongOption";
 
-const Dashboard = ({match,search})=>{
+const Dashboard = ({match})=>{
      
     const [currentSearch, setCurrentSearch]= useState();
     const [searchResult, setSearchResult] = useState();
@@ -16,24 +16,24 @@ const Dashboard = ({match,search})=>{
     // const testEvent = searchField =>{
     //     setCurrentSearch(searchField.value);
     // };
-
+console.log(searchResult)
     return(
         <div className="dashboard-wrapper">
             <Search
             type="music"
             placeholder="Search for a song"
             eventTimer="800"
-            songList={search.songList}
+            // songList={search.songList}
             setSearchResult={setSearchResult}
             setSongOptionSelected={songOptionSelected}
             />
 
-            <div className="song-option-container">
+            {/* <div className="song-option-container">
                 {
                     !songOptionSelected && searchResult.map((song, index) => 
                     <SongOption key={index} song={song} setSongSelected={setSongSelected} setSongOptionSelected={setSongOptionSelected} />)
             }
-        </div>
+        </div> */}
         
         { songOptionSelected && <SongContainer song={songSelected} />}
 
@@ -50,4 +50,4 @@ const Dashboard = ({match,search})=>{
 );
 };
 
-export default connect(({search}) => ({search}), {})(Dashboard);
+export default Dashboard;
