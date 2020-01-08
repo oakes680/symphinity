@@ -3,7 +3,13 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 import { SearchResults } from "./SearchResults";
-import { SearchBar, SearchContainer } from "../stylesheets/Search";
+import {
+  Form,
+  FormInput,
+  FormLabel,
+  LinkButton,
+  FormValidationWarning
+} from "../stylesheets/Form";
 
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState({ search: "" });
@@ -47,9 +53,12 @@ export const Search = () => {
   };
 
   return (
-    <SearchContainer onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="search">Search:</label>
-      <SearchBar
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <FormLabel htmlFor="search" style={{ margin: ".5rem 0" }}>
+        Search:
+      </FormLabel>
+      <FormInput
+        style={{ marginBottom: "1rem" }}
         id="search"
         name="search"
         type="text"
@@ -62,10 +71,12 @@ export const Search = () => {
           }
         })}
       />
-      {errors.search && <p>{errors.search.message}</p>}
-      <a href={url}>get auth</a>
+      {errors.search && (
+        <FormValidationWarning>{errors.search.message}</FormValidationWarning>
+      )}
+      <LinkButton href={url}>get auth</LinkButton>
       <SearchResults songs={searchResults}></SearchResults>
-    </SearchContainer>
+    </Form>
   );
 };
 export default Search;

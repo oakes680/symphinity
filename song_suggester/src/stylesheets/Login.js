@@ -1,42 +1,59 @@
 import styled from 'styled-components';
+import bg from '../assets/symphonity-bg.jpg';
 
-export const Login = styled.form`
-    width: 600px;
-    margin: 10% auto 0;
-    border: 2px solid #ededed;
+export const Form = styled.form`
+    width: 480px;
+    margin: 0 auto;
     border-radius: 5px;
-    padding: 15px;
+    padding: 30px 80px;
+    background-color: #121212;
 `
 
 export const FormLabel = styled.label`
     display:block;
-    font-size: 1.5em;
+    font-size: 1em;
+    margin: 15px 0;
 `
 
 export const FormInput = styled.input`
     display: block;
     width: 100%;
-    height: 35px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+    height: 40px;
+    border: 1px solid #121212;
+    background-color: #282828;
+    margin: 5px 0 0;
 `
 
 export const LoginButton = styled.button`
     display: block;
-    padding: 8px 24px;
-    background-color: green;
-    border: 1px solid darkgreen;
-    border-radius: 3px;
+    width: 100%
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #121212;
+    border-radius: 25px;
     font-size: 1.2em;
-    font-weight: bold;
+    margin: 20px 0;
+    color: #121212;
 `
 
 export const LinkButton = styled.a`
     display: block;
-    padding: 8px 24px;
-    background-color: lightgrey;
-    border: 1px solid darkgrey;
-    border-radius: 3px;
+    text-align:center;
+    height: 40px;
+    background-color: #1DB954;
+    border: 1px solid #121212;
+    border-radius: 25px;
     font-size: 1.2em;
     font-weight: bold;
+`
+
+export const FormContainer = styled.div`
+    width: 100%;
+    height: calc(100vh - 64px);
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url(${bg});
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `

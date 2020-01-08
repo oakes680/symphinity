@@ -1,13 +1,14 @@
-import React from 'react';
-import {NavBar, Logo} from '../stylesheets/Header';
+import React from "react";
+import { NavBar, Logo, LogoLink } from "../stylesheets/Header";
 
 const Header = () => {
-
-    return(
-        <NavBar>
-            <Logo>Symphinity</Logo>
-        </NavBar>
-    );
-}
+  return (
+    <NavBar>
+      <LogoLink to="/">
+        <Logo>Symphinity</Logo>
+      </LogoLink>
+    </NavBar>
+  );
+};
 
 export default Header;
