@@ -3,14 +3,13 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
     width: 100%;
     height: calc(100vh - 64px);
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: relative;
 `
 
 export const Aside = styled.aside`
     width: 240px;
-    height: 100%;
+    height: 100vh;
+    top: 64px;
     background-color: #121212;
     position: fixed;
 `
@@ -30,6 +29,9 @@ export const Nav = styled.nav`
 `
 
 export const Main = styled.main`
-    width: 100vw;
-    height: 100%;
+    position: absolute;
+    width: calc(100vw - 240px);
+    top: 64px;
+    left: 240px;
+    padding: 20px;
 `

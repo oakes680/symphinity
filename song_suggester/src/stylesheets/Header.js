@@ -7,6 +7,8 @@ export const NavBar = styled.div`
   height: 64px;
   background-color: #1db954;
   box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  position: fixed;
+  top:0;
 `;
 
 export const Logo = styled.h1`
