@@ -9,6 +9,7 @@ export const NavBar = styled.div`
   box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
   position: fixed;
   top:0;
+  z-index: 10;
 `;
 
 export const Logo = styled.h1`

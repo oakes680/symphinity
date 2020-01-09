@@ -48,8 +48,9 @@ export const LinkButton = styled.a`
 `
 
 export const FormContainer = styled.div`
+    position: relative;
     width: 100%;
-    height: calc(100vh - 64px);
+    top: 64px;
     background:linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url(${bg});
     background-repeat: no-repeat;
     background-position: center center;
