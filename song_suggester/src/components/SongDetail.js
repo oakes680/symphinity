@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import axios from "axios";
 
 import {
@@ -15,11 +15,19 @@ import {
   SongName
 } from "../stylesheets/SearchResults";
 import { Fav, Radar } from "../stylesheets/Favorites";
-import { url } from "../utils/spotifyAPI";
 
-export const SongDetail = ({ song, songData }) => {
+export const SongDetail = ({
+  song,
+  songData,
+  setSelectedSong,
+  setSongData,
+  setSearchResults,
+  setSearchTerm
+}) => {
   const [recommendedSongIDs, setRecommendedSongIDs] = useState([]);
   const [recommendedSongs, setRecommendedSongs] = useState([]);
+
+  console.log(recommendedSongs);
 
   useEffect(() => {
     // prevent sending empty requests to DS API
@@ -44,7 +52,6 @@ export const SongDetail = ({ song, songData }) => {
     const url = window.location.href;
     // extract token from url
     token.current = url.substring(url.indexOf("=") + 1, url.indexOf("&"));
-    console.log(token);
   }, []);
 
   useEffect(() => {
@@ -66,6 +73,62 @@ export const SongDetail = ({ song, songData }) => {
         .catch(err => console.error(err));
     }
   }, [recommendedSongIDs]);
+
+  const updateSong = useCallback(
+    async song => {
+      setSelectedSong(song);
+      setSearchResults([]);
+      setSearchTerm({ search: "" });
+
+      try {
+        const baseUrl = "https://api.spotify.com/v1/audio-features";
+        const res = await axios.get(`${baseUrl}/${song.id}`, {
+          headers: {
+            Authorization: `Bearer ${token.current}`,
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          }
+        });
+
+        const {
+          danceability,
+          energy,
+          key,
+          loudness,
+          mode,
+          speechiness,
+          acousticness,
+          instrumentalness,
+          liveness,
+          valence,
+          tempo,
+          duration_ms,
+          time_signature
+        } = res.data;
+
+        setSongData({
+          track_id: song.id,
+          popularity: song.popularity,
+          danceability,
+          energy,
+          key,
+          loudness,
+          mode,
+          speechiness,
+          acousticness,
+          instrumentalness,
+          liveness,
+          valence,
+          tempo,
+          duration_ms,
+          time_signature
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    [setSelectedSong, setSearchResults, setSearchTerm, setSongData]
+  );
 
   return (
     <LargeCard>
@@ -104,21 +167,20 @@ export const SongDetail = ({ song, songData }) => {
         <h2>You might like</h2>
 
         {recommendedSongs.map(song => (
-          <Similar>
-          <div>
-            <Thumb src={song.album.images[2].url} />
-            <Artist>
-              <ArtistName>{song.artists[0].name}</ArtistName>
-              <SongName>{song.name}</SongName>
-            </Artist>
-          </div>
-          <Fav>
-            <i className="far fa-heart"></i>
-            <i className="fas fa-heart"></i>
-          </Fav>
+          <Similar onClick={() => updateSong(song)}>
+            <div>
+              <Thumb src={song.album.images[2].url} />
+              <Artist>
+                <ArtistName>{song.artists[0].name}</ArtistName>
+                <SongName>{song.name}</SongName>
+              </Artist>
+            </div>
+            <Fav>
+              <i className="far fa-heart"></i>
+              <i className="fas fa-heart"></i>
+            </Fav>
           </Similar>
         ))}
-        
       </Frame>
     </LargeCard>
   );

@@ -7,11 +7,8 @@ import {
   Form,
   FormInput,
   FormLabel,
-  LinkButton,
   FormValidationWarning
 } from "../stylesheets/Form";
-
-import { url } from "../utils/spotifyAPI";
 
 export const Search = ({
   searchTerm,
@@ -78,7 +75,7 @@ export const Search = ({
       {errors.search && (
         <FormValidationWarning>{errors.search.message}</FormValidationWarning>
       )}
-      <LinkButton href={url}>get auth</LinkButton>
+
       <SearchResults
         songs={searchResults}
         setSelectedSong={setSelectedSong}
