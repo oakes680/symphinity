@@ -31,18 +31,20 @@ export const Search = ({
   }, []);
 
   useEffect(() => {
-    const baseUrl = "https://api.spotify.com/v1/search";
-    axios
-      .get(`${baseUrl}?q=${encodeURI(searchTerm.search)}&type=track`, {
-        headers: {
-          Authorization: `Bearer ${token.current}`,
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
-      })
-      .then(res => setSearchResults(res.data.tracks.items))
-      .catch(err => console.error(err));
-  }, [searchTerm, searchResults, setSearchResults]);
+    if (searchTerm.search !== "") {
+      const baseUrl = "https://api.spotify.com/v1/search";
+      axios
+        .get(`${baseUrl}?q=${encodeURI(searchTerm.search)}&type=track`, {
+          headers: {
+            Authorization: `Bearer ${token.current}`,
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          }
+        })
+        .then(res => setSearchResults(res.data.tracks.items))
+        .catch(err => console.error(err));
+    }
+  }, [searchTerm, setSearchResults]);
 
   const onSubmit = data => {
     // replace w/ axios call
