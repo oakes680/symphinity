@@ -3,6 +3,10 @@ import bg from "../assets/symphonity-bg.jpg";
 import colors from "./Colors";
 
 export const Form = styled.form`
+  width:100%;
+`
+
+export const FormDiv = styled.div`
   width: 480px;
   margin: 0 auto;
   border-radius: 5px;
@@ -66,6 +70,8 @@ export const LinkButton = styled.a`
 
 export const FormContainer = styled.div`
   width: 100%;
+  position: absolute;
+  top:64px;
   height: calc(100vh - 64px);
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
     url(${bg});
