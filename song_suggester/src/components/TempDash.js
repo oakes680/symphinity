@@ -24,7 +24,7 @@ const TempDash = ({
             <i className="far fa-heart"></i>Favorites
           </a>
           <a href="logout">
-            <i class="fas fa-sign-out-alt"></i>Logout
+            <i className="fas fa-sign-out-alt"></i>Logout
           </a>
         </Nav>
       </Aside>
