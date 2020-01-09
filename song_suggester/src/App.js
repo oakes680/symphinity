@@ -56,6 +56,7 @@ function App() {
           setSelectedSong={setSelectedSong}
           songData={songData}
           setSongData={setSongData}
+          spotifyToken={spotifyToken}
         ></TempDash>
       </Route>
       <Route path="/favorites" component={Saved} />

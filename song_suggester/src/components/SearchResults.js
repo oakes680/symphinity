@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useCallback } from "react";
 import axios from "axios";
 
 import {
@@ -15,21 +15,21 @@ export const SearchResults = ({
   setSelectedSong,
   setSongData,
   setSearchResults,
-  setSearchTerm
+  setSearchTerm,
+  spotifyToken
 }) => {
-  const token = useRef("");
-
   const updateSong = useCallback(
-    async song => {
+    async (song, spotifyToken) => {
       setSelectedSong(song);
       setSearchResults([]);
       setSearchTerm({ search: "" });
 
       try {
+        console.log(spotifyToken);
         const baseUrl = "https://api.spotify.com/v1/audio-features";
         const res = await axios.get(`${baseUrl}/${song.id}`, {
           headers: {
-            Authorization: `Bearer ${token.current}`,
+            Authorization: `Bearer ${spotifyToken}`,
             Accept: "application/json",
             "Content-Type": "application/json"
           }
@@ -75,16 +75,10 @@ export const SearchResults = ({
     [setSelectedSong, setSearchResults, setSearchTerm, setSongData]
   );
 
-  useEffect(() => {
-    const url = window.location.href;
-    // extract token from url
-    token.current = url.substring(url.indexOf("=") + 1, url.indexOf("&"));
-  }, []);
-
   return (
     <SearchResultsContainer>
       {songs.map(song => (
-        <SongCard key={song.id} onClick={() => updateSong(song)}>
+        <SongCard key={song.id} onClick={() => updateSong(song, spotifyToken)}>
           <Thumb src={song.album.images[2].url}></Thumb>
           <Artist>
             <ArtistName>{song.artists[0].name}</ArtistName>

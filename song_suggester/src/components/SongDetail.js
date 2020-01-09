@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 
 import {
@@ -22,12 +22,11 @@ export const SongDetail = ({
   setSelectedSong,
   setSongData,
   setSearchResults,
-  setSearchTerm
+  setSearchTerm,
+  spotifyToken
 }) => {
   const [recommendedSongIDs, setRecommendedSongIDs] = useState([]);
   const [recommendedSongs, setRecommendedSongs] = useState([]);
-
-  console.log(recommendedSongs);
 
   useEffect(() => {
     // prevent sending empty requests to DS API
@@ -47,13 +46,6 @@ export const SongDetail = ({
     }
   }, [songData]);
 
-  const token = useRef("");
-  useEffect(() => {
-    const url = window.location.href;
-    // extract token from url
-    token.current = url.substring(url.indexOf("=") + 1, url.indexOf("&"));
-  }, []);
-
   useEffect(() => {
     let listOfIDs = "";
     recommendedSongIDs.map(id => (listOfIDs += `${id},`));
@@ -64,7 +56,7 @@ export const SongDetail = ({
       axios
         .get(`https://api.spotify.com/v1/tracks/?ids=${listOfIDs}`, {
           headers: {
-            Authorization: `Bearer ${token.current}`,
+            Authorization: `Bearer ${spotifyToken}`,
             Accept: "application/json",
             "Content-Type": "application/json"
           }
@@ -72,7 +64,7 @@ export const SongDetail = ({
         .then(res => setRecommendedSongs(res.data.tracks))
         .catch(err => console.error(err));
     }
-  }, [recommendedSongIDs]);
+  }, [recommendedSongIDs, spotifyToken]);
 
   const updateSong = useCallback(
     async song => {
@@ -84,7 +76,7 @@ export const SongDetail = ({
         const baseUrl = "https://api.spotify.com/v1/audio-features";
         const res = await axios.get(`${baseUrl}/${song.id}`, {
           headers: {
-            Authorization: `Bearer ${token.current}`,
+            Authorization: `Bearer ${spotifyToken}`,
             Accept: "application/json",
             "Content-Type": "application/json"
           }
@@ -127,7 +119,13 @@ export const SongDetail = ({
         console.error(err);
       }
     },
-    [setSelectedSong, setSearchResults, setSearchTerm, setSongData]
+    [
+      setSelectedSong,
+      setSearchResults,
+      setSearchTerm,
+      setSongData,
+      spotifyToken
+    ]
   );
 
   return (

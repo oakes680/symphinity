@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
@@ -16,16 +16,10 @@ export const Search = ({
   searchResults,
   setSearchResults,
   setSelectedSong,
-  setSongData
+  setSongData,
+  spotifyToken
 }) => {
   const { register, handleSubmit, errors } = useForm();
-  const token = useRef("");
-
-  useEffect(() => {
-    const url = window.location.href;
-    // extract token from url
-    token.current = url.substring(url.indexOf("=") + 1, url.indexOf("&"));
-  }, []);
 
   useEffect(() => {
     if (searchTerm.search !== "") {
@@ -33,7 +27,7 @@ export const Search = ({
       axios
         .get(`${baseUrl}?q=${encodeURI(searchTerm.search)}&type=track`, {
           headers: {
-            Authorization: `Bearer ${token.current}`,
+            Authorization: `Bearer ${spotifyToken}`,
             Accept: "application/json",
             "Content-Type": "application/json"
           }
@@ -41,10 +35,11 @@ export const Search = ({
         .then(res => setSearchResults(res.data.tracks.items))
         .catch(err => console.error(err));
     }
-  }, [searchTerm, setSearchResults]);
+  }, [searchTerm, setSearchResults, spotifyToken]);
 
-  const onSubmit = data => {
+  const onSubmit = (e, data) => {
     // replace w/ axios call
+    e.preventDefault();
     console.log("passed validation");
   };
 
@@ -62,12 +57,15 @@ export const Search = ({
         id="search"
         name="search"
         type="text"
-        onChange={e => handleInput(e)}
+        onChange={e => {
+          handleInput(e);
+          //handleSubmit(e, onSubmit);
+        }}
         value={searchTerm.search}
         ref={register({
           minlength: 1,
           pattern: {
-            value: /^[a-z\d\-_\s]+$/i,
+            value: /^[a-zA-Z0-9 ]*$/g, // /^[a-z\d\-_\s]+$/i
             message: "Please only enter alphanumeric characters"
           }
         })}
@@ -82,6 +80,7 @@ export const Search = ({
         setSearchResults={setSearchResults}
         setSongData={setSongData}
         setSearchTerm={setSearchTerm}
+        spotifyToken={spotifyToken}
       ></SearchResults>
     </Form>
   );
