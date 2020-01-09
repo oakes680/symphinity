@@ -45,6 +45,7 @@ const TempDash = ({
           <SongDetail
             song={selectedSong}
             songData={songData}
+            selectedSong={selectedSong}
             setSelectedSong={setSelectedSong}
             setSongData={setSongData}
             setSearchResults={setSearchResults}

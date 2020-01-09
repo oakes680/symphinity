@@ -25,7 +25,6 @@ export const SearchResults = ({
       setSearchTerm({ search: "" });
 
       try {
-        console.log(spotifyToken);
         const baseUrl = "https://api.spotify.com/v1/audio-features";
         const res = await axios.get(`${baseUrl}/${song.id}`, {
           headers: {

@@ -36,8 +36,6 @@ const LoginForm = props => {
         props.history.push("");
       })
       .catch(err => console.log(err));
-
-    console.log(data);
   };
 
   return (

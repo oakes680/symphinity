@@ -37,9 +37,7 @@ export const Search = ({
     }
   }, [searchTerm, setSearchResults, spotifyToken]);
 
-  const onSubmit = (e, data) => {
-    // replace w/ axios call
-    e.preventDefault();
+  const onSubmit = data => {
     console.log("passed validation");
   };
 
@@ -57,10 +55,7 @@ export const Search = ({
         id="search"
         name="search"
         type="text"
-        onChange={e => {
-          handleInput(e);
-          //handleSubmit(e, onSubmit);
-        }}
+        onChange={e => handleInput(e)}
         value={searchTerm.search}
         ref={register({
           minlength: 1,

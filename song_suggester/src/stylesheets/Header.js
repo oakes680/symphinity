@@ -18,7 +18,7 @@ export const Logo = styled.h1`
   line-height: 60px;
   font-size: 1.5em;
   margin-left: 20px;
-  font-weight: bolder;
+  font-weight: bold;
   transition: .15s ease-out all;
 
   :hover {

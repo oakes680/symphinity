@@ -23,7 +23,8 @@ export const SongDetail = ({
   setSongData,
   setSearchResults,
   setSearchTerm,
-  spotifyToken
+  spotifyToken,
+  selectedSong
 }) => {
   const [recommendedSongIDs, setRecommendedSongIDs] = useState([]);
   const [recommendedSongs, setRecommendedSongs] = useState([]);
@@ -44,7 +45,7 @@ export const SongDetail = ({
         .then(res => setRecommendedSongIDs(res.data.recommended_song_ids))
         .catch(err => console.error(err));
     }
-  }, [songData]);
+  }, [songData, selectedSong]);
 
   useEffect(() => {
     let listOfIDs = "";
@@ -165,7 +166,7 @@ export const SongDetail = ({
         <h2>You might like</h2>
 
         {recommendedSongs.map(song => (
-          <Similar onClick={() => updateSong(song)}>
+          <Similar key={song.id} onClick={() => updateSong(song)}>
             <div>
               <Thumb src={song.album.images[2].url} />
               <Artist>
