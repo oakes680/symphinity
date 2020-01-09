@@ -13,6 +13,8 @@ import { Search } from "./components/Search";
 
 // Milo
 import TempDash from "./components/TempDash";
+import Header from "./components/Header";
+import GlobalStyle from "./stylesheets/Global";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState({ search: "" });
@@ -22,6 +24,8 @@ function App() {
 
   return (
     <div className="app-wrapper">
+      <GlobalStyle />
+      <Header></Header>
       <Route path="/" component={Navigation} />
       <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
       <Route exact path="/login" component={Login} />
