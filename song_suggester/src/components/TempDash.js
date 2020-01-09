@@ -40,7 +40,7 @@ const TempDash = ({
           setSongData={setSongData}
         ></Search>
         {selectedSong.id && !searchTerm.search && (
-          <SongDetail song={selectedSong}></SongDetail>
+          <SongDetail song={selectedSong} songData={songData}></SongDetail>
         )}
       </Main>
     </Wrapper>

@@ -27,10 +27,30 @@ export const AddToFav = styled.div`
   display:flex;
   flex-direction: row;
   align-items: center;
+  position: relative;
 
   i {
+      position: absolute;
       color: #1DB954;
       font-size: 2rem;
+  }
+  .fas {
+    opacity: 0;
+  }
+
+  .fas:hover {
+      opacity: 1;
+  }
+
+  .far {
+      opacity: 1;
+  }
+  .far:hover {
+      opacity: 0;
+  }
+
+  h3 {
+    margin-left: 40px;
   }
 `
 

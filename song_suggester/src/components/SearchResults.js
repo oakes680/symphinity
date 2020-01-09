@@ -52,7 +52,7 @@ export const SearchResults = ({
         } = res.data;
 
         setSongData({
-          trackID: song.id,
+          track_id: song.id,
           popularity: song.popularity,
           danceability,
           energy,

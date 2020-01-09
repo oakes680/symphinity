@@ -1,16 +1,72 @@
-import React from "react";
-import { LargeCard, Frame, AddToFav, Similar } from "../stylesheets/SongDetails";
-import { Thumb, Artist, ArtistName, SongName } from '../stylesheets/SearchResults'
-import { Fav } from '../stylesheets/Favorites'
+import React, { useEffect, useState, useRef } from "react";
+import axios from "axios";
 
-export const SongDetail = ({ song }) => {
+import {
+  LargeCard,
+  Frame,
+  AddToFav,
+  Similar
+} from "../stylesheets/SongDetails";
 
-    const favHover = (id) => {
-        document.getElementById(id).classList.add('fas');
+import {
+  Thumb,
+  Artist,
+  ArtistName,
+  SongName
+} from "../stylesheets/SearchResults";
+import { Fav, Radar } from "../stylesheets/Favorites";
+import { url } from "../utils/spotifyAPI";
+
+export const SongDetail = ({ song, songData }) => {
+  const [recommendedSongIDs, setRecommendedSongIDs] = useState([]);
+  const [recommendedSongs, setRecommendedSongs] = useState([]);
+
+  useEffect(() => {
+    // prevent sending empty requests to DS API
+    if (Object.keys(songData).length) {
+      axios
+        .post(
+          "https://cors-anywhere.herokuapp.com/https://spotify-flow-ds.herokuapp.com/input",
+          songData,
+          {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        )
+        .then(res => setRecommendedSongIDs(res.data.recommended_song_ids))
+        .catch(err => console.error(err));
     }
-    const favOut = (id) => {
-        document.getElementById(id).classList.remove('fas');
+  }, [songData]);
+
+  const token = useRef("");
+  useEffect(() => {
+    const url = window.location.href;
+    // extract token from url
+    token.current = url.substring(url.indexOf("=") + 1, url.indexOf("&"));
+    console.log(token);
+  }, []);
+
+  useEffect(() => {
+    let listOfIDs = "";
+    recommendedSongIDs.map(id => (listOfIDs += `${id},`));
+    listOfIDs = listOfIDs.substring(0, listOfIDs.length - 1);
+
+    // prevent sending empty requests to spotify API
+    if (listOfIDs.length) {
+      axios
+        .get(`https://api.spotify.com/v1/tracks/?ids=${listOfIDs}`, {
+          headers: {
+            Authorization: `Bearer ${token.current}`,
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          }
+        })
+        .then(res => setRecommendedSongs(res.data.tracks))
+        .catch(err => console.error(err));
     }
+  }, [recommendedSongIDs]);
+
   return (
     <LargeCard>
       <Frame>
@@ -23,9 +79,10 @@ export const SongDetail = ({ song }) => {
           allow="encrypted-media"
           title="spotifyPlayer"
         ></iframe>
-        <AddToFav onMouseOver={() => favHover('fav')} onMouseOut={() => favOut('fav')}>
-            <i className="far fa-heart" id="fav"></i>
-            <h3>Add to Favorites</h3>
+        <AddToFav>
+          <i className="far fa-heart"></i>
+          <i className="fas fa-heart"></i>
+          <h3>Add to Favorites</h3>
         </AddToFav>
         {/* <FollowBackground>
             <iframe
@@ -38,19 +95,30 @@ export const SongDetail = ({ song }) => {
               allowtransparency="true"
             ></iframe>
           </FollowBackground> */}
+        <Radar>
+          <h2>Feel the Beat!</h2>
+          Radar Chart Will Live Here!
+        </Radar>
       </Frame>
       <Frame>
-          <h2>You might like</h2>
+        <h2>You might like</h2>
+
+        {recommendedSongs.map(song => (
           <Similar>
-              <div>
-                <Thumb />
-                <Artist>
-                    <ArtistName>Artist Name</ArtistName>
-                    <SongName>Song Name</SongName>
-                </Artist>
-              </div>
-              <Fav onMouseOver={() => favHover('sim')} onMouseOut={() => favOut('sim')}><i class="far fa-heart" id="sim"></i></Fav>
+          <div>
+            <Thumb src={song.album.images[2].url} />
+            <Artist>
+              <ArtistName>{song.artists[0].name}</ArtistName>
+              <SongName>{song.name}</SongName>
+            </Artist>
+          </div>
+          <Fav>
+            <i className="far fa-heart"></i>
+            <i className="fas fa-heart"></i>
+          </Fav>
           </Similar>
+        ))}
+        
       </Frame>
     </LargeCard>
   );
