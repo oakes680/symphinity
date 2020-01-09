@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
@@ -11,17 +11,18 @@ import {
   FormValidationWarning
 } from "../stylesheets/Form";
 
-export const Search = () => {
-  const [searchTerm, setSearchTerm] = useState({ search: "" });
-  const [searchResults, setSearchResults] = useState([]);
-  const { register, handleSubmit, errors } = useForm();
+import { url } from "../utils/spotifyAPI";
 
+export const Search = ({
+  searchTerm,
+  setSearchTerm,
+  searchResults,
+  setSearchResults,
+  setSelectedSong,
+  setSongData
+}) => {
+  const { register, handleSubmit, errors } = useForm();
   const token = useRef("");
-  const baseUrl = "https://accounts.spotify.com/authorize";
-  const clientID = "46e78711e2c14c21a689149e27b79266";
-  const redirect = "http://localhost:3000/search";
-  const scope = "user-read-private";
-  const url = `${baseUrl}?client_id=${clientID}&redirect_uri=${redirect}&scope=${scope}&response_type=token`;
 
   useEffect(() => {
     const url = window.location.href;
@@ -41,7 +42,7 @@ export const Search = () => {
       })
       .then(res => setSearchResults(res.data.tracks.items))
       .catch(err => console.error(err));
-  }, [searchTerm]);
+  }, [searchTerm, searchResults, setSearchResults]);
 
   const onSubmit = data => {
     // replace w/ axios call
@@ -63,10 +64,11 @@ export const Search = () => {
         name="search"
         type="text"
         onChange={e => handleInput(e)}
+        value={searchTerm.search}
         ref={register({
           minlength: 1,
           pattern: {
-            value: /^[A-Za-z0-9]+$/i,
+            value: /^[a-z\d\-_\s]+$/i,
             message: "Please only enter alphanumeric characters"
           }
         })}
@@ -75,7 +77,13 @@ export const Search = () => {
         <FormValidationWarning>{errors.search.message}</FormValidationWarning>
       )}
       <LinkButton href={url}>get auth</LinkButton>
-      <SearchResults songs={searchResults}></SearchResults>
+      <SearchResults
+        songs={searchResults}
+        setSelectedSong={setSelectedSong}
+        setSearchResults={setSearchResults}
+        setSongData={setSongData}
+        setSearchTerm={setSearchTerm}
+      ></SearchResults>
     </Form>
   );
 };
