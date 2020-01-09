@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
     * {
         box-sizing: border-box;
     }
@@ -26,6 +26,10 @@ const GlobalStyle = createGlobalStyle`
 
   p {
       margin: 10px 0;
+  }
+
+  i {
+      margin-right: 10px;
   }
 `
 export default GlobalStyle;

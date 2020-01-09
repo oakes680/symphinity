@@ -30,8 +30,15 @@ export const Nav = styled.nav`
 
 export const Main = styled.main`
     position: absolute;
-    width: calc(100vw - 240px);
+    width: calc(100vw - 260px);
     top: 64px;
     left: 240px;
     padding: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+
+    h2,p {
+        text-align:left;
+    }
 `
