@@ -5,7 +5,8 @@ import {
   LargeCard,
   Frame,
   AddToFav,
-  Similar
+  Similar,
+  SimilarCard
 } from "../stylesheets/SongDetails";
 
 import {
@@ -166,19 +167,19 @@ export const SongDetail = ({
         <h2>You might like</h2>
 
         {recommendedSongs.map(song => (
-          <Similar key={song.id} onClick={() => updateSong(song)}>
-            <div>
+          <SimilarCard key={song.id} onClick={() => updateSong(song)}>
+            <Similar>
               <Thumb src={song.album.images[2].url} />
               <Artist>
                 <ArtistName>{song.artists[0].name}</ArtistName>
                 <SongName>{song.name}</SongName>
               </Artist>
-            </div>
+            </Similar>
             <Fav>
               <i className="far fa-heart"></i>
               <i className="fas fa-heart"></i>
             </Fav>
-          </Similar>
+          </SimilarCard>
         ))}
       </Frame>
     </LargeCard>
