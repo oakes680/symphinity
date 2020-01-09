@@ -12,9 +12,9 @@ import {
   FormValidationWarning
 } from "../stylesheets/Form";
 
-import { login } from "../store/actions/dashboardActions";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-const LoginForm = () => {
+const LoginForm = props => {
   const [formData, setFormData] = useState({});
   const { register, handleSubmit, errors } = useForm();
 
@@ -23,8 +23,19 @@ const LoginForm = () => {
   };
 
   const onSubmit = data => {
-    login({ username: data.login, password: data.password });
-    console.log(data);
+    axiosWithAuth()
+      .post(
+        "https://cors-anywhere.herokuapp.com/https://spotify-song-suggester-be.herokuapp.com/api/auth/login",
+        {
+          username: data.login,
+          password: data.password
+        }
+      )
+      .then(res => {
+        localStorage.setItem("token", res.data.payload);
+        props.history.push("");
+      })
+      .catch(err => console.log(err));
   };
 
   return (
