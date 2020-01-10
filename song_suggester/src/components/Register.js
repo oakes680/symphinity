@@ -1,14 +1,17 @@
-import React from 'react';
-import RegisterForm from './RegisterForm';
-import { Redirect } from 'react-router-dom';
+import React from "react";
+import RegisterForm from "./RegisterForm";
+import { Redirect } from "react-router-dom";
 
-const Register = () =>{
-    return(
-        <div className="register-page">
-            {localStorage.getItem('token') ? <Redirect to='/dashboard'/> : <RegisterForm />}
-        </div>
-        
-    );
+const Register = ({ user, history }) => {
+  return (
+    <div className="register-page">
+      {localStorage.getItem("token") ? (
+        <Redirect to="/dashboard" />
+      ) : (
+        <RegisterForm history={history} />
+      )}
+    </div>
+  );
 };
 
 export default Register;

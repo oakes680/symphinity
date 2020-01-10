@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 import {
   Form,
@@ -14,28 +14,28 @@ import {
   FormValidationWarning
 } from "../stylesheets/Form";
 
-export const RegisterForm = () => {
+export const RegisterForm = props => {
   const [formData, setFormData] = useState({});
   const { register, handleSubmit, errors, watch } = useForm();
   const password = useRef({});
   password.current = watch("password", "");
 
+  console.log(formData);
+
   const onSubmit = data => {
-    axios
+    axiosWithAuth()
       .post(
-        "https://spotify-song-suggester.herokuapp.com/api/auth/register",
+        "https://cors-anywhere.herokuapp.com/https://spotify-song-suggester-be.herokuapp.com/api/auth/register",
         {
           username: data.username,
           password: data.password
-        },
-        {
-          headers: {
-            "Content-Type": "application/json"
-          }
         }
       )
-      .then(res => console.log(res))
-      .catch(err => console.error(err));
+      .then(res => {
+        localStorage.setItem("token", res.data.payload);
+        props.history.push("");
+      })
+      .catch(err => console.log(err));
   };
 
   const handleInput = e => {
