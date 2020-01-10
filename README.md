@@ -24,4 +24,4 @@ Symphinity Frontend works with a Redux and SQL backend, and a suggestion engine 
 
 *API:* Spotify, Symphinity Suggestion Engine
 
-*Deployed Link:* [https://songsuggester-ewmsbuz2h.now.sh](https://songsuggester-ewmsbuz2h.now.sh)
+*Deployed Link:* [https://symphinityengine.netlify.com/](https://symphinityengine.netlify.com/login)
