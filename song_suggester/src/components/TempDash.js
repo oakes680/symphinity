@@ -2,6 +2,8 @@ import React from "react";
 import { Wrapper, Aside, Nav, Main } from "../stylesheets/Layout";
 import { Search } from "./Search";
 import { SongDetail } from "./SongDetail";
+import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 
 const TempDash = ({
   selectedSong,
@@ -12,21 +14,27 @@ const TempDash = ({
   setSongData,
   searchTerm,
   setSearchTerm,
-  spotifyToken
+  spotifyToken,
+  history
 }) => {
+  const logout = () => {
+    localStorage.removeItem("token");
+    history.push("/login");
+  };
+
   return (
     <Wrapper>
       <Aside>
         <Nav>
-          <a href="/dashboard">
+          <Link href="/dashboard" onClick={() => setSelectedSong({})}>
             <i className="fas fa-columns"></i>Dashboard
-          </a>
-          <a href="/favorites">
+          </Link>
+          <Link to="/favorites">
             <i className="far fa-heart"></i>Favorites
-          </a>
-          <a href="logout">
+          </Link>
+          <Link onClick={() => logout()}>
             <i className="fas fa-sign-out-alt"></i>Logout
-          </a>
+          </Link>
         </Nav>
       </Aside>
       <Main>
@@ -41,7 +49,7 @@ const TempDash = ({
           setSongData={setSongData}
           spotifyToken={spotifyToken}
         ></Search>
-        {selectedSong.id && !searchTerm.search && (
+        {Object.keys(selectedSong).length && !searchTerm.search && (
           <SongDetail
             song={selectedSong}
             songData={songData}
@@ -58,4 +66,4 @@ const TempDash = ({
   );
 };
 
-export default TempDash;
+export default withRouter(TempDash);
