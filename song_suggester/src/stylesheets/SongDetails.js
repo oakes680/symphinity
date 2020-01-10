@@ -18,7 +18,7 @@ export const Frame = styled.div`
   margin: 0 auto;
 
   iframe {
-    border: 1px solid #fff;
+    border: 1px solid #121212;
   }
 `;
 
@@ -27,10 +27,31 @@ export const AddToFav = styled.div`
   display:flex;
   flex-direction: row;
   align-items: center;
+  position: relative;
 
   i {
+      position: absolute;
       color: #1DB954;
       font-size: 2rem;
+      cursor: pointer;
+  }
+  .fas {
+    opacity: 0;
+  }
+
+  .fas:hover {
+      opacity: 1;
+  }
+
+  .far {
+      opacity: 1;
+  }
+  .far:hover {
+      opacity: 0;
+  }
+
+  h3 {
+    margin-left: 40px;
   }
 `
 
@@ -45,7 +66,7 @@ export const FollowBackground =
     justify-content: center;
   `
 
-export const Similar = styled.div`
+export const SimilarCard = styled.div`
   width: 100%;
   height: 80px;
   padding: 12px;
@@ -55,4 +76,10 @@ export const Similar = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  cursor: pointer;
+`
+export const Similar = styled.div`
+  overflow: hidden;
+  height: 56px;
+  width: 90%;
 `

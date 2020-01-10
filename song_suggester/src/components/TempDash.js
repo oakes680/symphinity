@@ -11,7 +11,8 @@ const TempDash = ({
   songData,
   setSongData,
   searchTerm,
-  setSearchTerm
+  setSearchTerm,
+  spotifyToken
 }) => {
   return (
     <Wrapper>
@@ -38,9 +39,19 @@ const TempDash = ({
           setSelectedSong={setSelectedSong}
           songData={songData}
           setSongData={setSongData}
+          spotifyToken={spotifyToken}
         ></Search>
         {selectedSong.id && !searchTerm.search && (
-          <SongDetail song={selectedSong}></SongDetail>
+          <SongDetail
+            song={selectedSong}
+            songData={songData}
+            selectedSong={selectedSong}
+            setSelectedSong={setSelectedSong}
+            setSongData={setSongData}
+            setSearchResults={setSearchResults}
+            setSearchTerm={setSearchTerm}
+            spotifyToken={spotifyToken}
+          ></SongDetail>
         )}
       </Main>
     </Wrapper>
