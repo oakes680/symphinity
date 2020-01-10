@@ -46,7 +46,7 @@ function App() {
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
       {/* <PrivateRoute exact path="/dashboard" component={Dashboard} />  */}
-      <Route path="/dashboard">
+      <PrivateRoute exact path="/dashboard">
         <TempDash
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
@@ -58,7 +58,7 @@ function App() {
           setSongData={setSongData}
           spotifyToken={spotifyToken}
         ></TempDash>
-      </Route>
+      </PrivateRoute>
       <Route path="/favorites" component={Saved} />
       <Route exact path="/search" component={Search} />
       <Route exact path="/dashboard2" component={Dashboard} />
