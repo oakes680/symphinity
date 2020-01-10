@@ -6,11 +6,9 @@ import PrivateRoute from "./components/PrivateRoute";
 // Application Component Imports
 
 import { Navigation } from "./components/Navigation";
-import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Saved from "./components/Saved";
 import Register from "./components/Register";
-import { Search } from "./components/Search";
 
 // Milo
 import TempDash from "./components/TempDash";
@@ -45,9 +43,10 @@ function App() {
       <Route exact path="/" component={() => (window.location.href = url)} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
-      {/* <PrivateRoute exact path="/dashboard" component={Dashboard} />  */}
+
       <PrivateRoute exact path="/dashboard">
         <TempDash
+          TempDash
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           searchResults={searchResults}
@@ -57,12 +56,10 @@ function App() {
           songData={songData}
           setSongData={setSongData}
           spotifyToken={spotifyToken}
-        ></TempDash>
+        />
       </PrivateRoute>
-      <Route path="/favorites" component={Saved} />
-      <Route exact path="/search" component={Search} />
-      <Route exact path="/dashboard2" component={Dashboard} />
-      <PrivateRoute path="/dashboard/saved" component={Saved} />
+
+      <PrivateRoute path="/favorites" component={Saved} />
     </div>
   );
 }
