@@ -23,23 +23,53 @@ const Saved = () => {
       <Main>
         <FavCard>
             <div>
-            <Thumb></Thumb>
+            <Thumb src="https://i.scdn.co/image/ab67616d000048514d9f7b88e82db31d13ac6668" />
             <Artist>
-                <ArtistName>Artist Name</ArtistName>
-                <SongName>Song Name</SongName>
+                <ArtistName>Gorillaz</ArtistName>
+                <SongName>One Percent</SongName>
             </Artist>
             </div>
-            <Fav><i class="fas fa-heart"></i></Fav>
+            <Fav><i className="fas fa-heart"></i></Fav>
         </FavCard>
         <FavCard>
             <div>
-            <Thumb></Thumb>
+            <Thumb src="https://i.scdn.co/image/ab67616d0000485184e0a5f22d758260588fc2ca" />
             <Artist>
-            <ArtistName>Artist Name</ArtistName>
-                <SongName>Song Name</SongName>
+            <ArtistName>Thundercat</ArtistName>
+                <SongName>King of the Hill</SongName>
             </Artist>
             </div>
-            <Fav><i class="fas fa-heart"></i></Fav>
+            <Fav><i className="fas fa-heart"></i></Fav>
+        </FavCard>
+        <FavCard>
+            <div>
+            <Thumb src="https://i.scdn.co/image/ab67616d000048519b6ac98a52f62d5cb473da40" />
+            <Artist>
+            <ArtistName>The Neighbourhood</ArtistName>
+                <SongName>Blue</SongName>
+            </Artist>
+            </div>
+            <Fav><i className="fas fa-heart"></i></Fav>
+        </FavCard>
+        <FavCard>
+            <div>
+            <Thumb src="https://i.scdn.co/image/a1a62f04a9d696c37e3688f44398a43121c33776"/>
+            <Artist>
+            <ArtistName>Matt Quentin</ArtistName>
+                <SongName>Just A Moment</SongName>
+            </Artist>
+            </div>
+            <Fav><i className="fas fa-heart"></i></Fav>
+        </FavCard>
+        <FavCard>
+            <div>
+            <Thumb src="https://i.scdn.co/image/ab67616d0000485122c614bdaf27ea223bcb2add" />
+            <Artist>
+            <ArtistName>Gregory Alan Isakov</ArtistName>
+                <SongName>Powder</SongName>
+            </Artist>
+            </div>
+            <Fav><i className="fas fa-heart"></i></Fav>
         </FavCard>
       </Main>
     </Wrapper>
