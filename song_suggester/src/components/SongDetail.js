@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import {
   LargeCard,
@@ -15,7 +17,9 @@ import {
   ArtistName,
   SongName
 } from "../stylesheets/SearchResults";
+
 import { Fav, Radar } from "../stylesheets/Favorites";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 export const SongDetail = ({
   song,
@@ -29,6 +33,7 @@ export const SongDetail = ({
 }) => {
   const [recommendedSongIDs, setRecommendedSongIDs] = useState([]);
   const [recommendedSongs, setRecommendedSongs] = useState([]);
+  const [songRadarGraph, setSongRadarGraph] = useState("");
 
   useEffect(() => {
     // prevent sending empty requests to DS API
@@ -43,7 +48,10 @@ export const SongDetail = ({
             }
           }
         )
-        .then(res => setRecommendedSongIDs(res.data.recommended_song_ids))
+        .then(res => {
+          setRecommendedSongIDs(res.data.recommended_song_ids);
+          setSongRadarGraph(res.data.radar_chart);
+        })
         .catch(err => console.error(err));
     }
   }, [songData, selectedSong]);
@@ -132,17 +140,15 @@ export const SongDetail = ({
     ]
   );
 
-  const addToFavorites = async song => {
+  const addToFavorites = async (e, songID) => {
+    e.stopPropagation();
+    console.log(songID);
     try {
-      const res = await axios.post(
+      const res = await axiosWithAuth().post(
         "https://cors-anywhere.herokuapp.com/https://spotify-song-suggester-be.herokuapp.com/api/tracks/like",
-        song,
-        {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }
+        { trackid: songID }
       );
+      console.log(res);
     } catch (err) {
       console.error(err);
     }
@@ -160,32 +166,37 @@ export const SongDetail = ({
           allow="encrypted-media"
           title="spotifyPlayer"
         ></iframe>
-        <AddToFav>
+        <AddToFav onClick={e => addToFavorites(e, song.id)}>
           <i className="far fa-heart"></i>
           <i className="fas fa-heart"></i>
           <h3>Add to Favorites</h3>
         </AddToFav>
-        {/* <FollowBackground>
-            <iframe
-              src={`https://open.spotify.com/follow/1/?uri=spotify:artist:${song.artists[0].id}&size=detail`}
-              width="auto"
-              height="56"
-              scrolling="no"
-              frameBorder="0"
-              style={{ border: "none", overflow: "hidden" }}
-              allowtransparency="true"
-            ></iframe>
-          </FollowBackground> */}
         <Radar>
           <h2>Feel the Beat!</h2>
-          Radar Chart Will Live Here!
+          <img src={`data:image/jpeg;base64,${songRadarGraph}`}></img>
         </Radar>
       </Frame>
       <Frame>
         <h2>You might like</h2>
 
+        {!recommendedSongs.length && (
+          <Loader
+            type="Audio"
+            color="#1DB954"
+            height={200}
+            width={200}
+            style={{ marginLeft: "25%", marginTop: "10rem" }}
+          ></Loader>
+        )}
+
         {recommendedSongs.map(song => (
-          <SimilarCard key={song.id} onClick={() => updateSong(song)}>
+          <SimilarCard
+            key={song.id}
+            onClick={() => {
+              setRecommendedSongs([]);
+              updateSong(song);
+            }}
+          >
             <Similar>
               <Thumb src={song.album.images[2].url} />
               <Artist>
@@ -193,7 +204,7 @@ export const SongDetail = ({
                 <SongName>{song.name}</SongName>
               </Artist>
             </Similar>
-            <Fav>
+            <Fav onClick={e => addToFavorites(e, song.id)}>
               <i className="far fa-heart"></i>
               <i className="fas fa-heart"></i>
             </Fav>
