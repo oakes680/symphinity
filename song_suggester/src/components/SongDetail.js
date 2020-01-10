@@ -50,8 +50,10 @@ export const SongDetail = ({
 
   useEffect(() => {
     let listOfIDs = "";
-    recommendedSongIDs.map(id => (listOfIDs += `${id},`));
-    listOfIDs = listOfIDs.substring(0, listOfIDs.length - 1);
+    if (recommendedSongIDs !== undefined) {
+      recommendedSongIDs.map(id => (listOfIDs += `${id},`));
+      listOfIDs = listOfIDs.substring(0, listOfIDs.length - 1);
+    }
 
     // prevent sending empty requests to spotify API
     if (listOfIDs.length) {
@@ -129,6 +131,22 @@ export const SongDetail = ({
       spotifyToken
     ]
   );
+
+  const addToFavorites = async song => {
+    try {
+      const res = await axios.post(
+        "https://cors-anywhere.herokuapp.com/https://spotify-song-suggester-be.herokuapp.com/api/tracks/like",
+        song,
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <LargeCard>
