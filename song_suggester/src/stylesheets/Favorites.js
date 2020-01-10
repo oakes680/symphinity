@@ -10,6 +10,12 @@ export const FavCard = styled.div`
     display:flex;
     flex-direction: row;
     justify-content: space-between;
+
+    div {
+        .fas {
+            opacity:1;
+        }
+    }
 `
 export const Fav = styled.div`
     position: relative
@@ -44,4 +50,10 @@ export const Radar = styled.div`
     height: auto;
     padding: 40px;
     color: white;
+
+    img {
+        max-width: 100%;
+        margin:0 auto;
+        filter: invert(1) hue-rotate(180deg);
+    }
 `
