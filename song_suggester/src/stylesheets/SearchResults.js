@@ -10,6 +10,7 @@ export const SearchResult = styled.p`
   padding: .75rem;
   margin: 0;
   color: ${colors.mediumBlack};
+  border: 5px solid red;
 
   :nth-of-type(even) {
     background-color: #606b6e;
@@ -29,6 +30,11 @@ export const SongCard = styled.div`
   border: 1px solid #121212;
   padding: 12px 0 12px 12px;
   background-color: #282828;
+  
+  @media (max-width: 768px){      
+        height: 80px;
+        text-overflow: ellipsis;
+    }
 
   :hover {
     background-color: #383838;
@@ -42,6 +48,14 @@ export const Artist = styled.div`
   margin-left: 10px;
   color: #fff;
   vertical-align: top;
+ 
+  @media (max-width: 768px){      
+    width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    }
 `
 
 export const Thumb = styled.img`
@@ -55,8 +69,11 @@ export const ArtistName = styled.p`
 
 export const SongName = styled.p`
   font-weight: 100;
-  font-size: 1rem;
+  font-size: 1.2rem;
   margin: 5px 0;
+  @media (max-width: 768px){      
+        text-overflow: ellipsis;
+    }
 `
 
 export const LargeCard = styled.div`

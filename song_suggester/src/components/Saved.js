@@ -1,7 +1,7 @@
 import React from 'react';
 import { Wrapper, Aside, Nav, Main } from "../stylesheets/Layout";
 import { FavCard, Fav } from "../stylesheets/Favorites";
-import { Artist, Thumb, SongName, ArtistName } from '../stylesheets/SearchResults';
+import { Artist, Thumb, SongName, ArtistName, SongCard } from '../stylesheets/SearchResults';
 const Saved = () => {
 
 
@@ -21,7 +21,7 @@ const Saved = () => {
         </Nav>
       </Aside>
       <Main>
-        <FavCard>
+        <SongCard>
             <div>
             <Thumb src="https://i.scdn.co/image/ab67616d000048514d9f7b88e82db31d13ac6668" />
             <Artist>
@@ -30,8 +30,8 @@ const Saved = () => {
             </Artist>
             </div>
             <Fav><i className="fas fa-heart"></i></Fav>
-        </FavCard>
-        <FavCard>
+        </SongCard>
+        <SongCard>
             <div>
             <Thumb src="https://i.scdn.co/image/ab67616d0000485184e0a5f22d758260588fc2ca" />
             <Artist>
@@ -40,8 +40,8 @@ const Saved = () => {
             </Artist>
             </div>
             <Fav><i className="fas fa-heart"></i></Fav>
-        </FavCard>
-        <FavCard>
+        </SongCard>
+        <SongCard>
             <div>
             <Thumb src="https://i.scdn.co/image/ab67616d000048519b6ac98a52f62d5cb473da40" />
             <Artist>
@@ -50,8 +50,8 @@ const Saved = () => {
             </Artist>
             </div>
             <Fav><i className="fas fa-heart"></i></Fav>
-        </FavCard>
-        <FavCard>
+        </SongCard>
+        <SongCard>
             <div>
             <Thumb src="https://i.scdn.co/image/a1a62f04a9d696c37e3688f44398a43121c33776"/>
             <Artist>
@@ -60,8 +60,8 @@ const Saved = () => {
             </Artist>
             </div>
             <Fav><i className="fas fa-heart"></i></Fav>
-        </FavCard>
-        <FavCard>
+        </SongCard>
+        <SongCard>
             <div>
             <Thumb src="https://i.scdn.co/image/ab67616d0000485122c614bdaf27ea223bcb2add" />
             <Artist>
@@ -70,7 +70,7 @@ const Saved = () => {
             </Artist>
             </div>
             <Fav><i className="fas fa-heart"></i></Fav>
-        </FavCard>
+        </SongCard>
       </Main>
     </Wrapper>
     );

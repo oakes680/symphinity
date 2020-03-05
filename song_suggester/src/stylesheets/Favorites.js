@@ -10,6 +10,10 @@ export const FavCard = styled.div`
     display:flex;
     flex-direction: row;
     justify-content: space-between;
+    @media (max-width: 768px){
+             margin: 10px auto;
+             width: 80%;
+    }
 
     div {
         .fas {
@@ -18,7 +22,11 @@ export const FavCard = styled.div`
     }
 `
 export const Fav = styled.div`
-    position: relative
+    position: relative;
+    @media (max-width: 768px){
+            display:none;
+ 
+    }
 
     i {
         position:absolute;
@@ -50,6 +58,9 @@ export const Radar = styled.div`
     height: auto;
     padding: 40px;
     color: white;
+    @media (max-width: 768px){      
+    margin-bottom: 20px;;
+    }
 
     img {
         max-width: 100%;

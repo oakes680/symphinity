@@ -10,12 +10,25 @@ export const LargeCard = styled.div`
   border: 1px solid #121212;
   margin-top: 20px;
   padding: 60px;
+  @media (max-width: 768px){      
+    width: 100%;
+    flex-direction: column;
+    margin: 0 auto;
+
+    }
 `;
 
 export const Frame = styled.div`
   width: 50%;
   height: auto;
   margin: 0 auto;
+  @media (max-width: 768px){    
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    }
 
   iframe {
     border: 1px solid #121212;
@@ -28,6 +41,9 @@ export const AddToFav = styled.div`
   flex-direction: row;
   align-items: center;
   position: relative;
+  @media (max-width: 768px){      
+    position: static;
+    }
 
   i {
       position: absolute;
