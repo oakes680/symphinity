@@ -23,8 +23,7 @@ export const Aside = styled.aside`
         width: 100%;
         height: auto;
         top: 0;
-        margin: 70px auto 0px;
-          
+        margin: 70px auto 0px;    
     }
 `
 export const Nav = styled.nav`
